@@ -2,9 +2,7 @@ from abc import ABC, abstractmethod
 
 # Custom Exception for Invalid Inputs
 class InvalidInputException(Exception):
-    def __init__(self, message="Invalid Input"):
-        super().__init__(message)
-
+    pass
 
 # Abstract Base Class (Demonstrates Abstraction)
 class Account(ABC):
