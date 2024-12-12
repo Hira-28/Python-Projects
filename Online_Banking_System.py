@@ -81,11 +81,14 @@ class SavingsAccount(Account):
         print(f"Withdrawal successful! New balance: {self.account_balance}")
 
     def display(self):
+        print("--------Account Information--------")
+        print()
         print(f"Savings Account Number: {self.account_number}")
         print(f"Balance: {self.account_balance}")
         print(f"Interest Rate: {self.__interest_rate * 100}%")
         self.display_personal_info()
         print()
+        print("----------------------------------")
 
 
 class LoanAccount(Account):
@@ -122,12 +125,15 @@ class LoanAccount(Account):
         print(f"Loan payment successful! Remaining loan balance: {self.__loan_amount}")
 
     def display(self):
+        print("--------Account Information--------")
+        print()
         print(f"Loan Account Number: {self.account_number}")
         print(f"Balance: {self.account_balance}")
         print(f"Loan Amount: {self.__loan_amount}")
         print(f"Loan Interest Rate: {self.__interest_rate * 100}%")
         self.display_personal_info()
         print()
+        print("----------------------------------")
 
 
 class BankSystem:
