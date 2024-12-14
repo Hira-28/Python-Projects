@@ -60,6 +60,10 @@ class Account(ABC):
     def display(self):
         pass
 
+# Notifications class (Multiple Inheritance)
+class Notifications:
+    def send_notification(self, message):
+        print(f"Notification: {message}")
 
 class SavingsAccount(Account):
     def __init__(self, account_number, account_balance, name, phone, email, interest_rate):
@@ -90,6 +94,20 @@ class SavingsAccount(Account):
         print()
         print("----------------------------------")
 
+class PremiumSavingsAccount(SavingsAccount):
+    def __init__(self, account_number, account_balance, name, phone, email, interest_rate, rewards):
+        super().__init__(account_number, account_balance, name, phone, email, interest_rate)
+        if rewards < 0:
+            raise InvalidInputException("Rewards cannot be negative.")
+        self.__rewards = rewards
+
+    def redeem_rewards(self):
+        print(f"Redeeming {self.__rewards} rewards.")
+        self.__rewards = 0
+
+    def display(self):
+        super().display()
+        print(f"Rewards: {self.__rewards}")
 
 class LoanAccount(Account):
     def __init__(self, account_number, account_balance, name, phone, email, loan_amount, interest_rate):
@@ -135,8 +153,7 @@ class LoanAccount(Account):
         print()
         print("----------------------------------")
 
-
-class BankSystem:
+class BankSystem(Notifications):
     def __init__(self):
         self.accounts = []
 
@@ -144,7 +161,7 @@ class BankSystem:
         if any(acc.account_number == account.account_number for acc in self.accounts):
             raise InvalidInputException("Account number already exists.")
         self.accounts.append(account)
-        print("Account added successfully!")
+        self.send_notification("Account added successfully!")
 
     def find_account(self, account_number):
         for account in self.accounts:
@@ -157,7 +174,7 @@ class BankSystem:
         if account is None:
             raise InvalidInputException("Account not found.")
         self.accounts.remove(account)
-        print(f"Account {account_number} removed successfully!")
+        self.send_notification(f"Account {account_number} removed successfully!")
 
     def display_accounts(self, admin_mode=False, current_user=None):
         if not self.accounts:
